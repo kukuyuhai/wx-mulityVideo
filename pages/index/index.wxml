@@ -1,0 +1,49 @@
+<view class="page-body">
+  <block wx:if="{{ currentIndex == 0}}">
+    <view class='section' wx:for="{{list}}" wx:key="{{item.id}}">
+         <video id="video-{{item.id}}" src="{{item.src}}" controls custom-cache="{{false}}" binderror="error" objectFit="fill" wx:if="{{item.isPlaying}}"></video>
+      <view class="controls" wx:else>
+        <image src='{{item.thumb}}' class='video_background'></image>
+        <view class='play_view' bindtap='playVideo' data-id='{{item.id}}' data-item='{{item}}'>
+          <image src='/images/play.png' class='play_btn'></image>
+        </view>
+        <view class="time">{{item.time}}</view>
+      </view>
+      <view class='section-des'>
+        <text class='video_title'>{{item.title}}</text>
+        <text class='{{ item.isCollapse ? "video_content_all":"video_content"}}'>{{item.content}}</text>
+        <view class='video_pro'>
+          <text class='video_time'>{{item.date}}</text>
+          <view bindtap='toggleToShow' data-id='{{index}}' wx:if="{{item.isCollapse}}" class='toggle_btn'>
+            <view class='navigator-arrow rotate-90'></view>收起
+          </view>
+          <view bindtap='toggleToShow' data-id='{{index}}' wx:else class='toggle_btn'>
+            <view class='navigator-arrow rotate90'></view>展开
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class='wx-flex'>
+      <view class="wx-flex-item" wx:for="{{typies}}" wx:key="{{item.type}}">
+        <view class='type-thumb'data-type="{{item.type}}"  data-thumbName='{{item.name}}' bindtap='navigateToType'>
+          <image src='{{item.thumb}}' class='type-thumb-image'></image>
+          <text class='type-thumb-count'>{{item.count}}个视频</text>
+        </view>
+        <view class='type-name'>{{item.name}}</view>
+        <view class='type-last-time'>{{item.lastTime}} 更新</view>
+      </view>
+    </view>
+  </block>
+</view>
+<view class='tabbar'>
+  <view class='tabbar-item {{currentIndex == 0 ? "active" :""}}' data-idx="0" bindtap='tabbarTap'>
+    <image src='{{currentIndex == 0 ? "/images/icon_home_HL.png" : "/images/icon_home.png"}}' class='icon'></image>
+    <view>首页</view>
+  </view>
+  <view class='tabbar-item {{currentIndex == 1 ? "active" :""}}' data-idx='1' bindtap='tabbarTap'>
+    <image src='{{currentIndex == 1 ? "/images/icon-gallery-HL.png" : "/images/icon-gallery.png"}}' class='icon'></image>  
+    <view>专题</view>
+  </view>
+</view>

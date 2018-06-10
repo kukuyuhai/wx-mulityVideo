@@ -1,0 +1,23 @@
+<view class='section' wx:for="{{list}}" wx:key="{{item.id}}">
+  <video id="video-{{item.id}}" src="{{item.src}}" controls custom-cache="{{false}}" binderror="error" objectFit="fill" wx:if="{{item.isPlaying}}"></video>
+  <view class="controls" wx:else>
+    <image src='{{item.thumb}}' class='video_background'></image>
+    <view class='play_view' bindtap='playVideo' data-id='{{item.id}}' data-index='{{index}}'>
+      <image src='/images/play.png' class='play_btn'></image>
+    </view>
+    <view class="time">{{item.time}}</view>
+  </view>
+  <view class='section-des'>
+    <text class='video_title'>{{item.title}}</text>
+    <text class='{{ item.isCollapse ? "video_content_all":"video_content"}}'>{{item.content}}</text>
+    <view class='video_pro'>
+      <text class='video_time'>{{item.date}}</text>
+      <view bindtap='toggleToShow' data-id='{{index}}' wx:if="{{item.isCollapse}}" class='toggle_btn'>
+        <view class='navigator-arrow rotate-90'></view>收起
+      </view>
+      <view bindtap='toggleToShow' data-id='{{index}}' wx:else class='toggle_btn'>
+        <view class='navigator-arrow rotate90'></view>展开
+      </view>
+    </view>
+  </view>
+</view>
